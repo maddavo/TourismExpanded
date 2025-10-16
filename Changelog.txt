@@ -1,0 +1,22 @@
+Changelog
+
+1.1.0
+	Adoption by Linuxgurugamer
+	Added InstallChecker
+	Added AssemblyVersion.tt
+	Added new setting to modify the deadline
+	Reduced maxSimultaneous from 8 to 2
+	Added a cooldown of 100 days
+	Fixed bug when calculating roundtrip time to another vessel/asteroid
+	Fixed issue with visiting a station in orbit, applies to visiting a base on another planet
+
+1.0.2
+Tourism Expanded 1.0.2
+-Significant performance improvements
+-Other minor tweaks
+
+Tourism Expanded 1.0.1
+- Fixed some bugs
+
+TourismExpanded 1.0.0
+-Initial release
