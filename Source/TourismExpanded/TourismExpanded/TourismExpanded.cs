@@ -80,6 +80,17 @@ namespace TourismExpanded
             {
                 CalculateDeadline();
             }
+            else
+            {
+                // ConfiguredContract has already applied the config's base deadline.
+                // Clear the type, duration and absolute timestamp together, just as
+                // a native KSP contract with no deadline is serialized.
+                typeof(Contract).GetField("deadlineType", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .SetValue(contract, Contract.DeadlineType.None);
+                contract.TimeDeadline = 0;
+                typeof(Contract).GetField("dateDeadline", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .SetValue(contract, 0d);
+            }
         }
 
         public void CalculateDeadline()
