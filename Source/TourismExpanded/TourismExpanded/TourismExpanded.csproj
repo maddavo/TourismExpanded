@@ -57,6 +57,7 @@
     <Compile Include="LambertSolver.cs" />
     <Compile Include="MaxContractChanger.cs" />
     <Compile Include="TourismExpanded.cs" />
+    <Compile Include="DeadlinePolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

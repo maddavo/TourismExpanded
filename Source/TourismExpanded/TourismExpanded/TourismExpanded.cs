@@ -76,21 +76,31 @@ namespace TourismExpanded
         }
         protected override void OnOffered()
         {
-            if (HighLogic.CurrentGame.Parameters.CustomParams<TourismExpanded.TourismExpandedSettings>().enableDeadlines)
-            {
+            if (HighLogic.CurrentGame.Parameters.CustomParams<TourismExpandedSettings>().enableDeadlines)
                 CalculateDeadline();
-            }
             else
-            {
-                // ConfiguredContract has already applied the config's base deadline.
-                // Clear the type, duration and absolute timestamp together, just as
-                // a native KSP contract with no deadline is serialized.
-                typeof(Contract).GetField("deadlineType", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .SetValue(contract, Contract.DeadlineType.None);
-                contract.TimeDeadline = 0;
-                typeof(Contract).GetField("dateDeadline", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .SetValue(contract, 0d);
-            }
+                ClearDisabledDeadline("offer");
+        }
+
+        protected override void OnAccepted()
+        {
+            // Cached offers are restored without OnOffered being called again.
+            ClearDisabledDeadline("accept");
+        }
+
+        protected override void OnLoad(ConfigNode node)
+        {
+            // Also repair saved offers and active contracts when the option is off.
+            if (contract.ContractState == Contract.State.Offered ||
+                contract.ContractState == Contract.State.Active)
+                ClearDisabledDeadline("load");
+        }
+
+        private void ClearDisabledDeadline(string phase)
+        {
+            bool enabled = HighLogic.CurrentGame.Parameters.CustomParams<TourismExpandedSettings>().enableDeadlines;
+            if (DeadlinePolicy.Apply(contract, enabled))
+                Debug.Log("[TourismExpanded deadline-fix-v2] Cleared deadline at " + phase + ": " + contract.Title);
         }
 
         public void CalculateDeadline()

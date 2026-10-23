@@ -24,7 +24,7 @@ namespace TourismExpanded
         public override int SectionOrder { get { return 1; } }
         public override bool HasPresets { get { return true; } }
 
-        [GameParameters.CustomParameterUI("Enable deadlines", toolTip = "Will not alter existing contracts")]
+        [GameParameters.CustomParameterUI("Enable deadlines", toolTip = "When disabled, removes deadlines from Tourism Expanded offers and active contracts on load or acceptance")]
         public bool enableDeadlines = true;
 
         [GameParameters.CustomFloatParameterUI("Reward funds modifier", minValue = 0.0f, maxValue = 5.0f, displayFormat = "0.0", toolTip = "Will not alter existing contracts")]
